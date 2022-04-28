@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -9,6 +9,8 @@ import { BaseChartDirective } from 'ng2-charts';
   ]
 })
 export class GraficaBarraComponent implements OnInit {
+
+  @Input() horizontal: boolean = false;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -22,18 +24,24 @@ export class GraficaBarraComponent implements OnInit {
   //  DataLabelsPlugin
   //];
 
-  public barChartData: ChartData<'bar'> = {
+
+  @Input() barChartData: ChartData<'bar'> = {
     labels: [ '2020', '2021', '2022', '2023', '2024', '2025', '2026' ],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A', backgroundColor:'#5351E8', hoverBackgroundColor: 'red' },
-      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B', backgroundColor:'#508BF2', hoverBackgroundColor: 'red' },
-      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series C', backgroundColor:'#55F2E0', hoverBackgroundColor: 'red' }
+      //{ data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A', backgroundColor:'#5351E8', hoverBackgroundColor: 'red' },
+      //{ data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B', backgroundColor:'#508BF2', hoverBackgroundColor: 'red' },
+      //{ data: [ 28, 50, 20, 80, 50, 25, 90 ], label: 'Series C', backgroundColor:'#55F2E0', hoverBackgroundColor: 'red' }
     ]
   };
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log( this.horizontal );
+
+    if ( this.horizontal ) {
+      this.barChartType = 'line';
+    }
   }
 
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
